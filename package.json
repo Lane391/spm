@@ -1,0 +1,30 @@
+{
+  "name": "gkmessage",
+  "description": "Message self",
+  "version": "0.0.1",
+  "author": "goku",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": ""
+    }
+  ],
+  "main": "",
+  "scripts": {},
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "keywords": [],
+  "dependencies": {
+    "koa": "^0.13.0"
+  },
+  "devDependencies": {}
+}
