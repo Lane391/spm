@@ -34,5 +34,7 @@
     "koa-router": "^3.7.0",
     "koa-static": "^1.4.7"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "bower": "^1.3.12"
+  }
 }
