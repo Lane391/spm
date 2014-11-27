@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "socket.io": "~1.2.1"
+    "socket.io": "~1.2.1",
+    "flat-ui": "~2.2.2"
   }
 }
