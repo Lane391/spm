@@ -19,8 +19,8 @@
   ],
   "main": "",
   "scripts": {
-    "start": "node --harmony index.js",
-    },
+    "start": "node --harmony index.js"
+  },
   "engines": {
     "node": ">= 0.11.0"
   },
@@ -28,5 +28,7 @@
   "dependencies": {
     "koa": "^0.13.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+
+  }
 }
