@@ -6,7 +6,11 @@ rewrite = require('koa-rewrite'),
    jade = require('koa-jade');
 
 var app = koa(),
-static_app = koa();
+static_app = koa(),
+socket_app = koa()
+
+// app.use(mount('/socket.io', socket_app))
+
 static_app.use(static(__dirname + '/bower_components'));
 
 app.use(jade.middleware({
@@ -25,11 +29,22 @@ app.use(jade.middleware({
 app.use(router(app));
 app.use(mount('/bower_components', static_app))
 
+var server = require('http').Server(app.callback()),
+        io = require('socket.io')(server)
 
-app.get('', function *() {
+app.get('/', function *() {
 	yield this.render('index', {})
 })
 .post('/message', function *() {
 	
 });
-app.listen(process.env.PORT || 3000);
+
+io.on('connection', function(socket) {
+  socket.join("room1")
+  socket.on('chat', function (message) {
+    console.log(message)
+    socket.broadcast.to('room1').emit("chat", message)
+  });
+})
+
+server.listen(process.env.PORT || 3000);
