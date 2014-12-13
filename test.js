@@ -1,8 +1,9 @@
 var io = require("socket.io-client")
-var socket = io.connect("http://gkmessage-a1a6a.coding.io/")
+var socket = io.connect("http://127.0.0.1:3000/")
 socket.on("connect", function(a) {
+	console.log("socket on connect")
 	socket.on("chat", function(message) {
 		console.log(message)
 	})
+	socket.emit("chat", {hello2: "123"})
 })
-socket.emit("chat", {hello2: "123"})

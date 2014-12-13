@@ -39,11 +39,6 @@ app.get('/', function *() {
 	
 });
 
-io.on('connection', function(socket) {
-  socket.join("room1")
-  socket.on('chat', function (message) {
-    socket.broadcast.to('room1').emit("chat", message)
-  });
-})
+require("./message").initialize(io)
 
 server.listen(process.env.PORT || 3000);

@@ -33,6 +33,7 @@
     "koa-rewrite": "^1.1.0",
     "koa-router": "^3.7.0",
     "koa-static": "^1.4.7",
+    "mysql": "^2.5.3",
     "socket.io": "^1.2.1"
   },
   "devDependencies": {
