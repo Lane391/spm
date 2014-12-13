@@ -3,6 +3,7 @@ var http = require('http')
   , qs = require('querystring')
   , github = require('octonode')
   , app = require("./app.js")
+  , Q = require('q');
 
 exports.initialize = function(app) {
 
@@ -17,26 +18,26 @@ app.get('/github/oauth/login', function *() {
 	this.redirect(authURL)
 })
 
-app.get('/github/oauth/', function *() {
-  var values = qs.parse(this.query);
-  // Check against CSRF attacks
-
-  if (!state || state[1] != this.query.state) {
-  	this.status = 403
-  	this.body = "状态不正确"
-    // res.writeHead(403, {'Content-Type': 'text/plain'});
-  } else {
-  	self = this
-  	console.log("here")
-    github.auth.login(values.code, function (err, token) {
-        // res.writeHead(200, {'Content-Type': 'text/plain'});
-        // res.end(token);
-        console.log(token)
-        require("./app.js").setToken(token)
-        self.status = 301
-        self.redirect("/")
+app.get('/github/oauth/', function *(next) {
+  var query = this.query;
+ 
+  self = this
+  yield function () {
+  	var deferred = Q.defer()
+    github.auth.login(query.code, function (err, token) {
+        if (err) {
+        	self.status = 403
+        	self.body = "error"
+        } else {
+	        require("./app.js").setToken(token)
+	        self.status = 301
+	        self.redirect("/")
+    		}
+    		deferred.resolve()
     	})
-  }
+    return deferred.promise
+  }()
+  // }
 })
 
 }
