@@ -12,7 +12,7 @@ connection.connect(function(error) {
 
 exports.save_message = function(message, callback) {
 	QUERY_INSERT_MESSAGE = 'INSERT INTO `gkmessage` (`body`) VALUES (?);';
-	// console.log(QUERY_INSERT_MESSAGE)
+	console.log(QUERY_INSERT_MESSAGE)
 	connection.query(QUERY_INSERT_MESSAGE,
 		[JSON.stringify(message)], function(error, rows, fields) {
 			if (error)
