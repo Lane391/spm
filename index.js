@@ -40,5 +40,6 @@ app.get('/', function *() {
 });
 
 require("./message").initialize(io)
+require("./github_oauth").initialize(app)
 
 server.listen(process.env.PORT || 3000);
