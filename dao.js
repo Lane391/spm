@@ -8,6 +8,9 @@ var connection = mysql.createConnection({
 })
 
 connection.connect(function(error) {
+	if (error)
+		console.log(error)
+	console.log('mysql connected')
 })
 
 exports.save_message = function(message, callback) {
