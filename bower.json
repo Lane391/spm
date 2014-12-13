@@ -17,6 +17,8 @@
   "dependencies": {
     "socket.io": "~1.2.1",
     "flat-ui": "~2.2.2",
-    "socket.io-client": "~1.2.1"
+    "socket.io-client": "~1.2.1",
+    "infinity": "*",
+    "jquery": "~2.1.1"
   }
 }

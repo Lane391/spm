@@ -42,7 +42,6 @@ app.get('/', function *() {
 io.on('connection', function(socket) {
   socket.join("room1")
   socket.on('chat', function (message) {
-    console.log(message)
     socket.broadcast.to('room1').emit("chat", message)
   });
 })
