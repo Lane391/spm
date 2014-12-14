@@ -1,5 +1,6 @@
-var mysql = require("mysql")
-var connection = mysql.createConnection({
+var mysql = require("mysql"),
+        Q = require("q")
+var pool = mysql.createPool({
   host     : process.env.MYSQL_HOST || '127.0.0.1',
   database : process.env.MYSQL_DATABASE || 'gkmessage',
   user     : process.env.MYSQL_USERNAME || 'root',
@@ -7,23 +8,34 @@ var connection = mysql.createConnection({
   port : process.env.MYSQL_port || 3306
 })
 
-connection.connect(function(error) {
-	if (error)
-		console.log(error)
-	console.log('mysql connected')
-})
+function getConnection() {
+	var deferred = Q.defer()
+	pool.getConnection(function(error, connection) {
+		if (error) {
+			console.error(error)
+			deferred.reject(new Error(error))
+		}
+		console.log('mysql connected')
+		deferred.resolve(connection)
+	})
+	return deferred.promise
+}
 
 console.log("connect to mysql")
 
 exports.save_message = function(message, callback) {
 	QUERY_INSERT_MESSAGE = 'INSERT INTO `gkmessage` (`body`) VALUES (?);';
-	console.log(QUERY_INSERT_MESSAGE)
-	connection.query(QUERY_INSERT_MESSAGE,
-		[JSON.stringify(message)], function(error, rows, fields) {
-			if (error)
-				console.log(error)
-			callback(rows)
-		})
+
+	getConnection()
+	.then(function(connection) {
+		console.log(QUERY_INSERT_MESSAGE)
+		connection.query(QUERY_INSERT_MESSAGE,
+			[JSON.stringify(message)], function(error, rows, fields) {
+				if (error)
+					console.log(error)
+				callback(rows)
+			})
+	})
 }
 
 exports.messages = function(page, callback) {
