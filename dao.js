@@ -8,7 +8,13 @@ var pool = mysql.createPool({
   port : process.env.MYSQL_port || 3306
 })
 
-console.log(pool)
+console.log({
+  host     : process.env.MYSQL_HOST || '127.0.0.1',
+  database : process.env.MYSQL_DATABASE || 'gkmessage',
+  user     : process.env.MYSQL_USERNAME || 'root',
+  password : process.env.MSYQL_PASSWORD || '',
+  port : process.env.MYSQL_port || 3306
+})
 
 function getConnection() {
 	var deferred = Q.defer()
