@@ -34,15 +34,22 @@ exports.save_message = function(message, callback) {
 				if (error)
 					console.log(error)
 				callback(rows)
-			})
+			}
+			connection.release()
+			)
 	})
 }
 
 exports.messages = function(page, callback) {
-	connection.query('SELECT * FROM `gkmessage` ORDER BY id DESC' + 
-		' LIMIT ?,10', [(page - 1) * 20],
+	getConnection()
+	.then(function(connection) {
+		connection.query('SELECT * FROM `gkmessage` ORDER BY id DESC' + 
+			' LIMIT ?,10', [(page - 1) * 20],
 
-		function(error, rows, fields) {
-			callback(rows)
-		})
+			function(error, rows, fields) {
+				callback(rows)
+
+				connection.release()
+			})
+	})
 }
