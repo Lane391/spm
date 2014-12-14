@@ -34,8 +34,8 @@ exports.save_message = function(message, callback) {
 				if (error)
 					console.log(error)
 				callback(rows)
+				connection.release()
 			}
-			connection.release()
 			)
 	})
 }
