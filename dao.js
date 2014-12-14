@@ -13,6 +13,8 @@ connection.connect(function(error) {
 	console.log('mysql connected')
 })
 
+console.log("connect to mysql")
+
 exports.save_message = function(message, callback) {
 	QUERY_INSERT_MESSAGE = 'INSERT INTO `gkmessage` (`body`) VALUES (?);';
 	console.log(QUERY_INSERT_MESSAGE)
