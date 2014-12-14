@@ -8,6 +8,8 @@ var pool = mysql.createPool({
   port : process.env.MYSQL_port || 3306
 })
 
+console.log(pool)
+
 function getConnection() {
 	var deferred = Q.defer()
 	pool.getConnection(function(error, connection) {
