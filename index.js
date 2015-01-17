@@ -36,6 +36,18 @@ app.use(mount('/public', static_public))
 // var server = require('http').Server(app.callback()),
 //         io = require('socket.io')(server)
 
+function User(name, email) {
+  this.name = name;
+  this.email = email;
+}
+
+// Dummy users
+var users = [
+    new User('tj', 'tj@vision-media.ca')
+  , new User('ciaran', 'ciaranj@gmail.com')
+  , new User('aaron', 'aaron.heckmann+github@gmail.com')
+];
+
 app.get('/', function *() {
 	yield this.render('index', {})
 }).
@@ -50,6 +62,14 @@ get('/user/repos', function *() {
 
 .post('/message', function *() {
 	
+});
+
+app.get('/user', function *() {
+  // console.log(this.request.query.id);
+  var self = this;
+  dao.user_repos(this.request.query.id).then(function(repositories) {
+    yield self.render('test', repositories);
+  })
 });
 
 // require("./message").initialize(io)

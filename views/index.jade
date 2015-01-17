@@ -1,26 +1,28 @@
 doctype html
-html()
+html(lang=zh_CN)
   head
-    title=message
-    script(src="/bower_components/socket.io-client/socket.io.js")
-    script(type='text/javascript').
-      var $elementChat = $("#messages")
-      var $listChat = new infinity.ListView($elementChat)
-
-      var socket = io.connect("http://localhost")
-      socket.on("connection", function(socket) {
-        console.log("connection")
-
-      })
-
-      socket.on("chat", function(data) {
-        if ('chat' == data['type']) {
-          
-        }
-      })
-
+    meta(http-equiv="content-type",content="text/html; charset=utf-8")
+    title= "shell.pm"
+    link(rel="stylesheet",href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css")
+    link(rel="stylesheet",href="/public/style.css")
+    script(src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js")
+    script(src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js")
   body
-    #messages
-
-    #chat_input
-      input
+    nav(class="navbar navber-inverse navbar-fixed-top",role="navigation")
+      div(class="container")
+        div(class="navbar-header")
+          a(class="navbar-brand",href="#")= "Halo Share.pm"
+        div(id="navbar",class="collapse navbar-collapse")
+          ul(class="nav navbar-nav")
+            li(class="active")
+              a(href="#")= "我的档案"
+            li
+              a(href="#poplist")= "流行"
+            li
+              a(href="#system")= "平台系统"
+            li
+              form(role="form")
+                div(class="input-group")
+                  input(id="search_form",type="text",class="form-control",placeholder="search key")
+     div(class="container wrap")
+       include login.jade
