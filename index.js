@@ -3,8 +3,8 @@ var koa = require('koa'),
  router = require('koa-router'),
  static = require('koa-static'),
 rewrite = require('koa-rewrite'),
-   jade = require('koa-jade')
-    // dao = require('./dao.js')
+   jade = require('koa-jade'),
+    dao = require('./dao.js')
 
 var app = koa(),
 static_app = koa()
