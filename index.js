@@ -3,12 +3,12 @@ var koa = require('koa'),
  router = require('koa-router'),
  static = require('koa-static'),
 rewrite = require('koa-rewrite'),
-   jade = require('koa-jade'),
-    dao = require('./dao.js')
+   jade = require('koa-jade')
+    // dao = require('./dao.js')
 
 var app = koa(),
 static_app = koa(),
-socket_app = koa()
+// socket_app = koa()
 
 // app.use(mount('/socket.io', socket_app))
 
@@ -30,8 +30,8 @@ app.use(jade.middleware({
 app.use(router(app));
 app.use(mount('/bower_components', static_app))
 
-var server = require('http').Server(app.callback()),
-        io = require('socket.io')(server)
+// var server = require('http').Server(app.callback()),
+//         io = require('socket.io')(server)
 
 app.get('/', function *() {
 	yield this.render('index', {})
@@ -40,7 +40,7 @@ app.get('/', function *() {
 	
 });
 
-require("./message").initialize(io)
+// require("./message").initialize(io)
 require("./github_oauth").initialize(app)
 
 server.listen(process.env.PORT || 3000);
