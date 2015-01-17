@@ -33,6 +33,7 @@
     "koa-rewrite": "^1.1.0",
     "koa-router": "^3.7.0",
     "koa-static": "^1.4.7",
+    "mongodb": "^1.4.28",
     "mysql": "^2.5.3",
     "octonode": "~0.6.11",
     "q": "^1.1.2"

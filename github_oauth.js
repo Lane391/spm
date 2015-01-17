@@ -3,7 +3,8 @@ var http = require('http')
   , qs = require('querystring')
   , github = require('octonode')
   , app = require("./app.js")
-  , Q = require('q');
+  , Q = require('q')
+  , dao = require("./dao.js")
 
 exports.initialize = function(app) {
 
@@ -28,12 +29,28 @@ app.get('/github/oauth/', function *(next) {
         if (err) {
         	self.status = 403
         	self.body = "error"
+          console.error(err)
         } else {
 	        require("./app.js").setToken(token)
+          client = github.client(token)
 	        self.status = 301
-	        self.redirect("/")
+          client.me().info(function(err, data, h) {
+            console.log("receive user info")
+            client.me().repos(data.login, function(err, repo, h) {
+              console.log("recive user repositories")
+
+              dao.mongo_connect().then(function(db) {
+                db.collection('user_repos')
+                  .insert(repo, function(err, result) {
+                  })
+              })
+              self.redirect("/")
+              deferred.resolve()
+            })
+          })
+	        
     		}
-    		deferred.resolve()
+    		
     	})
     return deferred.promise
   }()
