@@ -40,7 +40,7 @@ app.get('/github/oauth/', function *(next) {
               console.log("recive user repositories")
 
               dao.mongo_connect().then(function(db) {
-                db.collection('spm')
+                db.collection('user_repos')
                   .insert(repo, function(err, result) {
                   })
               })
