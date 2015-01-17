@@ -7,12 +7,12 @@ rewrite = require('koa-rewrite'),
     // dao = require('./dao.js')
 
 var app = koa(),
-static_app = koa(),
+static_app = koa()
 // socket_app = koa()
 
 // app.use(mount('/socket.io', socket_app))
 
-static_app.use(static(__dirname + '/bower_components'));
+static_app.use(static(__dirname + '/bower_components'))
 
 app.use(jade.middleware({
   viewPath: __dirname + '/views',
@@ -43,4 +43,4 @@ app.get('/', function *() {
 // require("./message").initialize(io)
 require("./github_oauth").initialize(app)
 
-server.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
