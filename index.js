@@ -40,7 +40,12 @@ app.get('/', function *() {
 	yield this.render('index', {})
 }).
 get('/user/repos', function *() {
-  yield this.render('user_repos', {})
+  var self = this
+  dao.
+  user_repos(this.request.query.id).
+  then(function(repositories) {
+    self.body = self.render('user_repos', {repositories:repositories})
+  })
 })
 
 .post('/message', function *() {
