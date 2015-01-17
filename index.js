@@ -56,8 +56,11 @@ app.get('/', function *() {
 });
 
 app.get('/user', function *() {
-  console.log(this.request.query.id);
-  yield this.render('test', { users: users });
+  // console.log(this.request.query.id);
+  var self = this;
+  dao.user_repos(this.request.query.id).then(function(repositories) {
+    yield self.render('test', repositories);
+  })
 });
 
 // require("./message").initialize(io)
