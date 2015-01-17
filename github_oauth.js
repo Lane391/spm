@@ -42,10 +42,10 @@ app.get('/github/oauth/', function *(next) {
               dao.mongo_connect().then(function(db) {
                 db.collection('user_repos')
                   .insert(repo, function(err, result) {
+                    self.redirect("/user?id=" + data.login)
+                    deferred.resolve()
                   })
               })
-              self.redirect("/")
-              deferred.resolve()
             })
           })
 	        

@@ -38,7 +38,11 @@ app.use(mount('/public', static_public))
 
 app.get('/', function *() {
 	yield this.render('index', {})
+}).
+get('/user/repos', function *() {
+  yield this.render('user_repos', {})
 })
+
 .post('/message', function *() {
 	
 });
